@@ -30,6 +30,7 @@ const Navbar = () => {
     setToken(false);
     setUserData(false);
     localStorage.removeItem("token");
+    navigate("/");
   };
 
   const menuVariants = {

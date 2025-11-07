@@ -39,6 +39,7 @@ const UserMenu = () => {
         setToken(false);
         setUserData(false);
         localStorage.removeItem("token");
+        navigate("/");
         break;
       default:
         break;

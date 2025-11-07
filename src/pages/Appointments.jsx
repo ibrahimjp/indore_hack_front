@@ -10,6 +10,7 @@ const Appointments = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState({ type: "", text: "" });
   const [cancellingId, setCancellingId] = useState(null);
+  const [payingId, setPayingId] = useState(null);
 
   useEffect(() => {
     if (token) {
@@ -56,12 +57,25 @@ const Appointments = () => {
       );
 
       if (response.data.success) {
+        toast.success("Appointment cancelled successfully");
         setMessage({
           type: "success",
           text: "Appointment cancelled successfully",
         });
-        toast.success("Appointment cancelled successfully");
-        await fetchAppointments();
+
+        // Fetch appointments without setting loading state to prevent blank screen
+        try {
+          const appointmentsResponse = await axios.get(
+            backendUrl + "/api/user/appointments",
+            { headers: { token } },
+          );
+
+          if (appointmentsResponse.data.success) {
+            setAppointments(appointmentsResponse.data.appointments || []);
+          }
+        } catch (fetchError) {
+          console.error("Error fetching updated appointments:", fetchError);
+        }
       } else {
         setMessage({
           type: "error",
@@ -82,6 +96,7 @@ const Appointments = () => {
 
   const makePayment = async (appointmentId) => {
     try {
+      setPayingId(appointmentId);
       const response = await axios.post(
         backendUrl + "/api/user/make-payment",
         { appointmentId },
@@ -91,9 +106,22 @@ const Appointments = () => {
       );
 
       if (response.data.success) {
-        setMessage({ type: "success", text: "Payment completed successfully" });
         toast.success("Payment completed successfully");
-        await fetchAppointments();
+        setMessage({ type: "success", text: "Payment completed successfully" });
+
+        // Fetch appointments without setting loading state to prevent blank screen
+        try {
+          const appointmentsResponse = await axios.get(
+            backendUrl + "/api/user/appointments",
+            { headers: { token } },
+          );
+
+          if (appointmentsResponse.data.success) {
+            setAppointments(appointmentsResponse.data.appointments || []);
+          }
+        } catch (fetchError) {
+          console.error("Error fetching updated appointments:", fetchError);
+        }
       } else {
         setMessage({
           type: "error",
@@ -106,6 +134,8 @@ const Appointments = () => {
         error.response?.data?.message || "An error occurred during payment";
       setMessage({ type: "error", text: errorMessage });
       toast.error(errorMessage);
+    } finally {
+      setPayingId(null);
     }
   };
 
@@ -352,9 +382,12 @@ const Appointments = () => {
                       <>
                         <button
                           onClick={() => makePayment(appointment._id)}
-                          className="flex-1 bg-primary-green text-dark-bg font-semibold py-2 px-3 rounded-lg text-sm hover:bg-deep-green transition-colors"
+                          disabled={payingId === appointment._id}
+                          className="flex-1 bg-primary-green text-dark-bg font-semibold py-2 px-3 rounded-lg text-sm hover:bg-deep-green transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Pay Now
+                          {payingId === appointment._id
+                            ? "Processing..."
+                            : "Pay Now"}
                         </button>
                         <button
                           onClick={() => cancelAppointment(appointment._id)}
