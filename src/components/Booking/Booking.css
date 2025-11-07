@@ -1,0 +1,125 @@
+
+   .booking {
+     background-color: #000;
+     color: #fff;
+     font-family: Arial, sans-serif;
+     margin: 0;
+     padding: 0;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 100vh;
+   }
+
+   .container2 {
+     width: 100%;
+     max-width: 600px;
+   }
+
+   .card2 {
+     background-color: #111;
+     border-radius: 12px;
+     box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+     padding: 20px;
+     margin-bottom: 20px;
+   }
+
+   .section-title {
+     font-size: 20px;
+     margin-bottom: 15px;
+     color: #245f37;
+   }
+
+   .doctor-info {
+     display: flex;
+     align-items: center;
+     gap: 15px;
+     margin-bottom: 20px;
+   }
+
+   .doctor-info img {
+     width: 60px;
+     height: 60px;
+     border-radius: 50%;
+   }
+
+   .doctor-info h2 {
+     margin: 0;
+     font-size: 18px;
+     color: #fff;
+   }
+
+   .doctor-info p {
+     margin: 2px 0 0;
+     color: #ccc;
+   }
+
+   .summary {
+     display: flex;
+     justify-content: space-between;
+     margin-bottom: 10px;
+   }
+
+   .summary strong {
+     color: #fff;
+   }
+
+   .total {
+     font-size: 20px;
+     font-weight: bold;
+     color: #245f37;
+     text-align: right;
+     margin: 15px 0;
+   }
+
+   .payment-method {
+     border: 1px solid #245f37;
+     border-radius: 8px;
+     padding: 15px;
+     margin-bottom: 15px;
+     background-color: #0a0a0a;
+   }
+
+   .payment-method p {
+     margin: 5px 0;
+     color:#ccc;
+   }
+
+   .secure-box {
+     background-color: rgba(36, 95, 55, 0.2);
+     border-left: 4px solid #245f37;
+     padding: 10px;
+     border-radius: 8px;
+     font-size: 14px;
+     margin-bottom: 20px;
+   }
+
+   .buttons {
+     display: flex;
+     justify-content: space-between;
+     margin-top: 15px;
+   }
+
+   button, .btn {
+     background-color: #245f37;
+     color: white;
+     border: none;
+     padding: 12px 20px;
+     border-radius: 8px;
+     cursor: pointer;
+     font-size: 16px;
+     text-decoration: none;
+     text-align: center;
+   }
+
+   button:hover, .btn:hover {
+     background-color: #1b472a;
+   }
+
+   .btn-back {
+     background-color: #333;
+   }
+
+   .btn-back:hover {
+     background-color: #222;
+   }
