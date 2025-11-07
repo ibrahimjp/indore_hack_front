@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const Profile = () => {
   const { userData, token, backendUrl, loadUserProfileData } =
@@ -92,20 +91,17 @@ const Profile = () => {
         setIsEditing(false);
         await loadUserProfileData();
         setProfileImage(null);
-        toast.success("Profile updated successfully!");
       } else {
         setMessage({
           type: "error",
           text: response.data.message || "Failed to update profile",
         });
-        toast.error(response.data.message || "Failed to update profile");
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while updating profile";
       setMessage({ type: "error", text: errorMessage });
-      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

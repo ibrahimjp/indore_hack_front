@@ -1,3 +1,4 @@
+import React from "react";
 // File: src/components/Navbar.jsx
 
 import { useState, useContext } from "react";

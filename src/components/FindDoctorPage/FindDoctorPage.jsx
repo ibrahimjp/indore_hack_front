@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Clock, Calendar, Star, CheckCircle } from "lucide-react";
 import { AppContext } from "../../context/AppContext";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 // --- BookingModal Component ---
@@ -74,13 +73,13 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
 
   const handleContinue = async () => {
     if (!token) {
-      toast.error("Please login to book an appointment");
+      alert("Please login to book an appointment");
       onClose();
       return;
     }
 
     if (!selectedDate || !selectedTime) {
-      toast.error("Please select both date and time");
+      alert("Please select both date and time");
       return;
     }
 
@@ -105,8 +104,7 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
         setSelectedTime("");
         onClose();
 
-        // Show success toast
-        toast.success("Appointment booked successfully!");
+        console.log("Appointment booked successfully!");
 
         // Navigate after a brief delay to ensure modal is fully closed
         setTimeout(() => {
@@ -114,13 +112,11 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
         }, 300);
       } else {
         setIsBooking(false);
-        toast.error(response.data.message || "Failed to book appointment");
+        alert(response.data.message || "Failed to book appointment");
       }
     } catch (error) {
       setIsBooking(false);
-      toast.error(
-        error.response?.data?.message || "Failed to book appointment",
-      );
+      alert(error.response?.data?.message || "Failed to book appointment");
     }
   };
 

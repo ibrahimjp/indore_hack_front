@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const Appointments = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
@@ -32,14 +31,12 @@ const Appointments = () => {
           type: "error",
           text: response.data.message || "Failed to fetch appointments",
         });
-        toast.error(response.data.message || "Failed to fetch appointments");
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while fetching appointments";
       setMessage({ type: "error", text: errorMessage });
-      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -57,7 +54,6 @@ const Appointments = () => {
       );
 
       if (response.data.success) {
-        toast.success("Appointment cancelled successfully");
         setMessage({
           type: "success",
           text: "Appointment cancelled successfully",
@@ -81,14 +77,12 @@ const Appointments = () => {
           type: "error",
           text: response.data.message || "Failed to cancel appointment",
         });
-        toast.error(response.data.message || "Failed to cancel appointment");
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while cancelling appointment";
       setMessage({ type: "error", text: errorMessage });
-      toast.error(errorMessage);
     } finally {
       setCancellingId(null);
     }
@@ -106,7 +100,6 @@ const Appointments = () => {
       );
 
       if (response.data.success) {
-        toast.success("Payment completed successfully");
         setMessage({ type: "success", text: "Payment completed successfully" });
 
         // Fetch appointments without setting loading state to prevent blank screen
@@ -127,13 +120,11 @@ const Appointments = () => {
           type: "error",
           text: response.data.message || "Payment failed",
         });
-        toast.error(response.data.message || "Payment failed");
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "An error occurred during payment";
       setMessage({ type: "error", text: errorMessage });
-      toast.error(errorMessage);
     } finally {
       setPayingId(null);
     }

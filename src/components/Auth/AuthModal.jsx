@@ -1,8 +1,7 @@
-import React, { useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AppContext } from "../../context/AppContext";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 const AuthModal = ({ isOpen, onClose }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -67,13 +66,9 @@ const AuthModal = ({ isOpen, onClose }) => {
             // Close modal and show success message
             setFormData({ name: "", email: "", password: "" });
             onClose();
-
-            // Show toast after modal closes
-            setTimeout(() => {
-              toast.success(
-                isLoginMode ? "Login successful!" : "Registration successful!",
-              );
-            }, 100);
+            console.log(
+              isLoginMode ? "Login successful!" : "Registration successful!",
+            );
           }
         } catch (userError) {
           console.error("Failed to load user profile:", userError);

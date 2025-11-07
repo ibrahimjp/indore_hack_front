@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 export const AppContext = createContext();
@@ -21,7 +20,7 @@ const AppContextProvider = (props) => {
         setDoctors(data.doctors);
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to fetch doctors");
+      console.error(err.response?.data?.message || "Failed to fetch doctors");
     }
   };
 
@@ -35,8 +34,8 @@ const AppContextProvider = (props) => {
         setUserData(data.userData);
       }
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Failed to load user profile"
+      console.error(
+        error.response?.data?.message || "Failed to load user profile",
       );
     }
   };
