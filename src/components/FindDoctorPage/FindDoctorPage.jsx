@@ -47,7 +47,14 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
     return dates;
   };
 
-  const [availableDates] = useState(generateDates());
+  // Regenerate dates when doctor or doctor's available_slots change
+  const [availableDates, setAvailableDates] = useState(generateDates());
+  
+  useEffect(() => {
+    if (doctor) {
+      setAvailableDates(generateDates());
+    }
+  }, [doctor?.available_slots]);
 
   // Generate time slots
   const generateTimeSlots = () => {
@@ -336,7 +343,7 @@ const DoctorCard = ({ doctor, onBookNow }) => {
 
 // --- Main FindDoctorPage Component ---
 function FindDoctorPage() {
-  const { doctors: contextDoctors } = useContext(AppContext);
+  const { doctors: contextDoctors, getDoctorsData } = useContext(AppContext);
   const [doctors, setDoctors] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSpecialty, setSelectedSpecialty] = useState("all specialties");
@@ -365,6 +372,23 @@ function FindDoctorPage() {
       setFilteredDoctors(formattedDoctors);
     }
   }, [contextDoctors]);
+
+  // Refresh doctors list when booking modal opens to get latest slots
+  useEffect(() => {
+    if (bookingModalOpen) {
+      getDoctorsData();
+    }
+  }, [bookingModalOpen]);
+
+  // Update selectedDoctor with latest data when doctors list updates
+  useEffect(() => {
+    if (selectedDoctor && doctors.length > 0) {
+      const updatedDoctor = doctors.find((doc) => doc.id === selectedDoctor.id);
+      if (updatedDoctor) {
+        setSelectedDoctor(updatedDoctor);
+      }
+    }
+  }, [doctors]);
 
   useEffect(() => {
     const query = searchQuery.toLowerCase();
