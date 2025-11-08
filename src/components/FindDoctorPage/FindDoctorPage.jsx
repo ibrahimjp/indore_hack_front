@@ -30,11 +30,10 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
       const dayNum = date.getDate();
       const month = date.toLocaleDateString("en-US", { month: "short" });
 
-      // Check available slots from doctor's booked slots
+      // Check available slots from doctor's available slots
       const dateStr = `${date.getDate()}_${date.getMonth() + 1}_${date.getFullYear()}`;
-      const bookedSlots = doctor?.slots_booked?.[dateStr] || [];
-      const totalSlots = 10; // Total slots per day
-      const availableSlots = totalSlots - bookedSlots.length;
+      const availableSlotsList = doctor?.available_slots?.[dateStr] || [];
+      const availableSlots = availableSlotsList.length;
 
       dates.push({
         dayName,
@@ -66,9 +65,9 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
 
   // Get available time slots for selected date
   const getAvailableTimeSlots = () => {
-    if (!selectedDate || !doctor) return timeSlots;
-    const bookedSlots = doctor.slots_booked?.[selectedDate] || [];
-    return timeSlots.filter((slot) => !bookedSlots.includes(slot));
+    if (!selectedDate || !doctor) return [];
+    const availableSlotsList = doctor.available_slots?.[selectedDate] || [];
+    return availableSlotsList;
   };
 
   const availableTimeSlots = getAvailableTimeSlots();
@@ -360,6 +359,7 @@ function FindDoctorPage() {
         degree: doc.degree,
         available: doc.available,
         slots_booked: doc.slots_booked || {},
+        available_slots: doc.available_slots || {},
       }));
       setDoctors(formattedDoctors);
       setFilteredDoctors(formattedDoctors);
