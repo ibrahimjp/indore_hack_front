@@ -11,7 +11,6 @@ import Footer from "./components/Footer/Footer.jsx";
 import Navbar from "./components/Navbar.jsx";
 import FindDoctorPage from "./components/FindDoctorPage/FindDoctorPage.jsx";
 import Profile from "./pages/Profile.jsx";
-import Appointments from "./pages/Appointments.jsx";
 import { ToastProvider } from "./components/Toast/Toast.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -27,7 +26,6 @@ createRoot(document.getElementById("root")).render(
             <Route path="/Payment" element={<Payment />} />
             <Route path="/Price" element={<PriceApp />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/appointments" element={<Appointments />} />
           </Routes>
           <Footer />
         </Router>

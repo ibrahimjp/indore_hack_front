@@ -173,7 +173,7 @@ const Navbar = () => {
                       <button
                         onClick={() => {
                           toggleMenu();
-                          navigate("/appointments");
+                          window.location.href = "http://localhost:5174/appointments";
                         }}
                         className="bg-dark-green text-off-white font-medium py-2 px-4 rounded-xl text-sm hover:bg-primary-green transition-colors"
                       >

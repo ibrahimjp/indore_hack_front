@@ -110,7 +110,7 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
 
         // Navigate after a brief delay to ensure modal is fully closed
         setTimeout(() => {
-          navigate("/appointments");
+          window.location.href = "http://localhost:5174/appointments";
         }, 300);
       } else {
         setIsBooking(false);
