@@ -2,10 +2,12 @@ import { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
+import { useToast } from "../components/Toast/Toast";
 
 const Profile = () => {
   const { userData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
+  const toast = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: "",

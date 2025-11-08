@@ -4,11 +4,13 @@ import { X, Clock, Calendar, Star, CheckCircle } from "lucide-react";
 import { AppContext } from "../../context/AppContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../Toast/Toast";
 
 // --- BookingModal Component ---
 const BookingModal = ({ isOpen, onClose, doctor }) => {
   const { token, backendUrl } = useContext(AppContext);
   const navigate = useNavigate();
+  const toast = useToast();
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [isBooking, setIsBooking] = useState(false);

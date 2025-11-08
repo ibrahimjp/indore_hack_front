@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AppContext } from "../../context/AppContext";
 import axios from "axios";
+import { useToast } from "../Toast/Toast";
 
 const AuthModal = ({ isOpen, onClose }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -14,6 +15,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { backendUrl, setToken, setUserData } = useContext(AppContext);
+  const toast = useToast();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

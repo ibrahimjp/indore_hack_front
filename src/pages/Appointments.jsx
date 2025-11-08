@@ -2,9 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
+import { useToast } from "../components/Toast/Toast";
 
 const Appointments = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
+  const toast = useToast();
   const [appointments, setAppointments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState({ type: "", text: "" });

@@ -1,35 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
-  font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
-  width: 100%;
-  min-height: 100vh;
+    width: 100%;
+    min-height: 100vh;
 }
 
 /* Custom style for text-balance for browsers that support it */
 .text-balance {
-  text-wrap: balance;
+    text-wrap: balance;
 }

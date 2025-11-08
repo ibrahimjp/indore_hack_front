@@ -8,6 +8,7 @@ import { logo } from "../assets";
 import { AppContext } from "../context/AppContext";
 import AuthModal from "./Auth/AuthModal";
 import UserMenu from "./Auth/UserMenu";
+import { useToast } from "./Toast/Toast";
 
 const navLinks = [
   { title: "Home", href: "/" },
@@ -22,6 +23,7 @@ const Navbar = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const { userData, token, setToken, setUserData } = useContext(AppContext);
   const navigate = useNavigate();
+  const toast = useToast();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const openAuthModal = () => setIsAuthModalOpen(true);
@@ -31,6 +33,7 @@ const Navbar = () => {
     setToken(false);
     setUserData(false);
     localStorage.removeItem("token");
+    toast.success("Logged out successfully");
     navigate("/");
   };
 

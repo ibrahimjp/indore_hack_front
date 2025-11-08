@@ -2,12 +2,14 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
+import { useToast } from "../Toast/Toast";
 
 const UserMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const { userData, setToken, setUserData } = useContext(AppContext);
+  const toast = useToast();
 
   // Close menu when clicking outside
   useEffect(() => {
