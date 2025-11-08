@@ -21,7 +21,7 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const { userData, token, setToken, setUserData } = useContext(AppContext);
+  const { userData, token, setToken, setUserData, doctorData, dToken, setDToken, setDoctorData } = useContext(AppContext);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -30,9 +30,17 @@ const Navbar = () => {
   const closeAuthModal = () => setIsAuthModalOpen(false);
 
   const logout = () => {
-    setToken(false);
-    setUserData(false);
-    localStorage.removeItem("token");
+    if (dToken && doctorData) {
+      // Doctor logout
+      setDToken(false);
+      setDoctorData(false);
+      localStorage.removeItem("dToken");
+    } else {
+      // User logout
+      setToken(false);
+      setUserData(false);
+      localStorage.removeItem("token");
+    }
     toast.success("Logged out successfully");
     navigate("/");
   };
@@ -73,8 +81,8 @@ const Navbar = () => {
 
           {/* Desktop Authentication Section */}
           <div className="hidden md:flex items-center">
-            {token && userData ? (
-              // User is logged in - show user menu
+            {(token && userData) || (dToken && doctorData) ? (
+              // User or Doctor is logged in - show user menu
               <UserMenu />
             ) : (
               // User is not logged in - show login button
@@ -136,15 +144,15 @@ const Navbar = () => {
 
               {/* Mobile Authentication */}
               <motion.div variants={linkVariants} className="mt-4">
-                {token && userData ? (
+                {(token && userData) || (dToken && doctorData) ? (
                   <div className="flex flex-col items-center space-y-4">
                     <div className="flex items-center space-x-3">
                       <img
                         src={
-                          userData.image ||
+                          (doctorData?.image || userData?.image) ||
                           "https://i.pinimg.com/736x/b9/aa/0f/b9aa0f112ac344f7f0a7254ffa94c42c.jpg"
                         }
-                        alt={userData.name || "User"}
+                        alt={(doctorData?.name || userData?.name) || (dToken ? "Doctor" : "User")}
                         className="w-12 h-12 rounded-full object-cover border-2 border-primary-green"
                         onError={(e) => {
                           e.target.src =
@@ -153,41 +161,66 @@ const Navbar = () => {
                       />
                       <div>
                         <p className="text-off-white font-semibold">
-                          {userData.name}
+                          {dToken && doctorData ? `Dr. ${doctorData.name}` : userData?.name}
                         </p>
                         <p className="text-footer-gray text-sm">
-                          {userData.email}
+                          {(doctorData?.email || userData?.email)}
                         </p>
                       </div>
                     </div>
                     <div className="flex flex-col space-y-2 w-full max-w-xs">
-                      <button
-                        onClick={() => {
-                          toggleMenu();
-                          navigate("/profile");
-                        }}
-                        className="bg-primary-green text-dark-bg font-medium py-2 px-4 rounded-xl text-sm hover:bg-deep-green transition-colors"
-                      >
-                        My Profile
-                      </button>
-                      <button
-                        onClick={() => {
-                          toggleMenu();
-                          window.location.href = "http://localhost:5174/appointments";
-                        }}
-                        className="bg-dark-green text-off-white font-medium py-2 px-4 rounded-xl text-sm hover:bg-primary-green transition-colors"
-                      >
-                        My Appointments
-                      </button>
-                      <button
-                        onClick={() => {
-                          toggleMenu();
-                          logout();
-                        }}
-                        className="bg-red-500/20 text-red-400 font-medium py-2 px-4 rounded-xl text-sm hover:bg-red-500/30 transition-colors"
-                      >
-                        Logout
-                      </button>
+                      {dToken && doctorData ? (
+                        <>
+                          <button
+                            onClick={() => {
+                              toggleMenu();
+                              window.location.href = "http://localhost:5175/doctor/dashboard";
+                            }}
+                            className="bg-primary-green text-dark-bg font-medium py-2 px-4 rounded-xl text-sm hover:bg-deep-green transition-colors"
+                          >
+                            Dashboard
+                          </button>
+                          <button
+                            onClick={() => {
+                              toggleMenu();
+                              logout();
+                            }}
+                            className="bg-red-500/20 text-red-400 font-medium py-2 px-4 rounded-xl text-sm hover:bg-red-500/30 transition-colors"
+                          >
+                            Logout
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => {
+                              toggleMenu();
+                              navigate("/profile");
+                            }}
+                            className="bg-primary-green text-dark-bg font-medium py-2 px-4 rounded-xl text-sm hover:bg-deep-green transition-colors"
+                          >
+                            My Profile
+                          </button>
+                          <button
+                            onClick={() => {
+                              toggleMenu();
+                              window.location.href = "http://localhost:5174/appointments";
+                            }}
+                            className="bg-dark-green text-off-white font-medium py-2 px-4 rounded-xl text-sm hover:bg-primary-green transition-colors"
+                          >
+                            My Appointments
+                          </button>
+                          <button
+                            onClick={() => {
+                              toggleMenu();
+                              logout();
+                            }}
+                            className="bg-red-500/20 text-red-400 font-medium py-2 px-4 rounded-xl text-sm hover:bg-red-500/30 transition-colors"
+                          >
+                            Logout
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 ) : (

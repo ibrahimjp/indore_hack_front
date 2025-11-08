@@ -8,8 +8,12 @@ const UserMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
-  const { userData, setToken, setUserData } = useContext(AppContext);
+  const { userData, setToken, setUserData, doctorData, setDToken, setDoctorData, dToken } = useContext(AppContext);
   const toast = useToast();
+  
+  // Check if doctor is logged in
+  const isDoctor = dToken && doctorData;
+  const displayData = isDoctor ? doctorData : userData;
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -38,25 +42,76 @@ const UserMenu = () => {
         window.location.href = "http://localhost:5174/appointments";
         break;
       case "dashboard":
-        window.location.href = "http://localhost:5174/dashboard";
+        if (isDoctor) {
+          window.location.href = "http://localhost:5175/doctor/dashboard";
+        } else {
+          window.location.href = "http://localhost:5174/dashboard";
+        }
         break;
       case "messages":
         window.location.href = "http://localhost:5174/messages";
         break;
       case "logout":
-        setToken(false);
-        setUserData(false);
-        localStorage.removeItem("token");
+        if (isDoctor) {
+          setDToken(false);
+          setDoctorData(false);
+          localStorage.removeItem("dToken");
+        } else {
+          setToken(false);
+          setUserData(false);
+          localStorage.removeItem("token");
+        }
         navigate("/");
+        toast.success("Logged out successfully");
         break;
       default:
         break;
     }
   };
 
-  if (!userData) return null;
+  if (!displayData) return null;
 
-  const menuItems = [
+  // Menu items - different for doctors and users
+  const menuItems = isDoctor ? [
+    {
+      icon: (
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          />
+        </svg>
+      ),
+      label: "Dashboard",
+      action: "dashboard",
+    },
+    {
+      icon: (
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          />
+        </svg>
+      ),
+      label: "Logout",
+      action: "logout",
+    },
+  ] : [
     {
       icon: (
         <svg
@@ -163,10 +218,10 @@ const UserMenu = () => {
       >
         <img
           src={
-            userData.image ||
+            displayData.image ||
             "https://i.pinimg.com/736x/b9/aa/0f/b9aa0f112ac344f7f0a7254ffa94c42c.jpg"
           }
-          alt={userData.name || "User"}
+          alt={displayData.name || (isDoctor ? "Doctor" : "User")}
           className="w-full h-full object-cover"
           onError={(e) => {
             e.target.src =
@@ -185,15 +240,15 @@ const UserMenu = () => {
             transition={{ duration: 0.15 }}
             className="absolute right-0 mt-2 w-64 bg-dark-bg/95 backdrop-blur-md border border-light-black rounded-2xl shadow-2xl overflow-hidden z-50"
           >
-            {/* User Info Header */}
+            {/* User/Doctor Info Header */}
             <div className="px-4 py-4 border-b border-light-black bg-light-black/30">
               <div className="flex items-center space-x-3">
                 <img
                   src={
-                    userData.image ||
+                    displayData.image ||
                     "https://i.pinimg.com/736x/b9/aa/0f/b9aa0f112ac344f7f0a7254ffa94c42c.jpg"
                   }
-                  alt={userData.name || "User"}
+                  alt={displayData.name || (isDoctor ? "Doctor" : "User")}
                   className="w-12 h-12 rounded-full object-cover border-2 border-primary-green/20"
                   onError={(e) => {
                     e.target.src =
@@ -202,11 +257,16 @@ const UserMenu = () => {
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-off-white font-semibold text-sm truncate">
-                    {userData.name || "User"}
+                    {isDoctor ? `Dr. ${displayData.name || "Doctor"}` : (displayData.name || "User")}
                   </p>
                   <p className="text-footer-gray text-xs truncate">
-                    {userData.email || "email@example.com"}
+                    {displayData.email || "email@example.com"}
                   </p>
+                  {isDoctor && (
+                    <p className="text-primary-green text-xs mt-1">
+                      {displayData.speciality || "Doctor"}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

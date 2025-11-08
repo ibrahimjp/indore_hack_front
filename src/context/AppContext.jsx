@@ -12,6 +12,10 @@ const AppContextProvider = (props) => {
 
   const [token, setToken] = useState(localStorage.getItem("token") || false);
   const [userData, setUserData] = useState(false);
+  
+  // Doctor authentication
+  const [dToken, setDToken] = useState(localStorage.getItem("dToken") || false);
+  const [doctorData, setDoctorData] = useState(false);
 
   const getDoctorsData = async () => {
     try {
@@ -40,6 +44,22 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const loadDoctorProfileData = async () => {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/doctor/profile", {
+        headers: { dToken },
+      });
+
+      if (data.success) {
+        setDoctorData(data.profileData);
+      }
+    } catch (error) {
+      console.error(
+        error.response?.data?.message || "Failed to load doctor profile",
+      );
+    }
+  };
+
   useEffect(() => {
     getDoctorsData();
   }, []);
@@ -52,6 +72,14 @@ const AppContextProvider = (props) => {
     }
   }, [token]);
 
+  useEffect(() => {
+    if (dToken) {
+      loadDoctorProfileData();
+    } else {
+      setDoctorData(false);
+    }
+  }, [dToken]);
+
   const value = {
     doctors,
     currencySymbol,
@@ -62,6 +90,12 @@ const AppContextProvider = (props) => {
     setUserData,
     loadUserProfileData,
     getDoctorsData,
+    // Doctor authentication
+    dToken,
+    setDToken,
+    doctorData,
+    setDoctorData,
+    loadDoctorProfileData,
   };
 
   return (
