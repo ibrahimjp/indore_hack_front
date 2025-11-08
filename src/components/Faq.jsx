@@ -5,16 +5,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const faqData = [
   {
-    question: "What kind of businesses do you work with?",
-    answer: "We work with a wide range of businesses, from startups to established companies, across various industries. If you have repetitive workflows and a desire to improve efficiency, we can likely help."
+    question: "What is SympAI and how does it work?",
+    answer: "SympAI is an AI-powered health companion that listens to your symptoms in any Indian language, analyzes them using advanced NLP and RAG technology, and provides instant guidance. It classifies symptoms as serious (suggests hospitals/doctor consults) or normal (generates case report + OTC suggestions)."
   },
   {
-    question: "How long does it take to build an automation?",
-    answer: "The timeline depends on the complexity of the workflow. Simple automations can be built in as little as a week, while more complex, multi-platform integrations may take a few weeks. We provide a detailed timeline after our initial discovery call."
+    question: "Is SympAI accurate and safe to use?",
+    answer: "SympAI uses RAG (Retrieval-Augmented Generation) to fetch information from verified medical literature, not random internet data. Our system has 85% accuracy in verified tests. However, SympAI is a guidance tool and should not replace professional medical advice for serious conditions."
   },
   {
-    question: "What tools do you integrate with?",
-    answer: "We can integrate with hundreds of popular tools, including CRMs like Salesforce and HubSpot, communication platforms like Slack and Email, project management tools like Asana and Trello, and many more through APIs."
+    question: "Which languages does SympAI support?",
+    answer: "SympAI supports 10+ Indian languages, making healthcare accessible to rural populations. You can speak your symptoms in your native language, and SympAI will understand and respond accordingly."
+  },
+  {
+    question: "How does SympAI help prevent disease outbreaks?",
+    answer: "SympAI's Analytical Dashboard aggregates anonymized symptom data region-wise, identifies emerging disease patterns, and helps health authorities predict outbreaks before they spread. This enables early response and better disease control."
+  },
+  {
+    question: "Can doctors use SympAI?",
+    answer: "Yes! SympAI has a dedicated Doctor Portal where doctors can view patient summaries and medical history. The AI-generated case reports help reduce consult time by 50%, allowing doctors to focus on critical cases."
   }
 ];
 

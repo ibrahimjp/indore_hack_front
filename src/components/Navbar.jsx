@@ -54,7 +54,7 @@ const Navbar = () => {
           <a href="/" className="z-10">
             <img
               src={logo}
-              alt="Helium AI Agency Logo"
+              alt="SympAI Logo"
               className="h-8 w-8 md:h-10 md:w-10"
             />
           </a>

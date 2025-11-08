@@ -31,7 +31,7 @@ const  Hero = () => {
     hidden: { opacity: 0, y: 10, filter: "blur(8px)" },
     visible: (i) => ({ opacity: 1, y: 0, filter: "blur(0px)", transition: { delay: i * 0.1 + 0.5, duration: 0.5 } }),
   };
-  const heroWords = ["Automate,", "Optimize,", "Scale", "With", "AI"];
+  const heroWords = ["SympAI", "–", "Where", "AI", "Becomes", "Real", "Care"];
 
   return (
     <section className="relative min-h-screen w-full flex items-center justify-start pt-32 md:pt-40 pb-20 px-6">
@@ -39,12 +39,12 @@ const  Hero = () => {
       <GreenBall className="top-[140%] left-[-30%] w-[300px] h-[300px] md:w-[600px] md:h-[600px] blur-lg" />
       <motion.div className="max-w-4xl w-full flex flex-col items-start text-left gap-12 pl-[144px] pr-10 py-10" variants={containerVariants} initial="hidden" animate="visible">
         <motion.figure className="flex flex-col items-start gap-4" variants={itemVariants}>
-          <p className="text-xl md:text-2xl italic font-medium text-balance">“Data dashboards now run themselves. We just watch.”</p>
+          <p className="text-xl md:text-2xl italic font-medium text-balance">"Hospitals are full, but many visits are unnecessary. We build AI that listens, learns, and heals."</p>
           <figcaption className="flex items-center gap-3 bg-dark-bg/80 border border-light-black px-4 py-2 rounded-full">
-            <img src={testimonialAvatar} alt="Jamal Ortiz" className="w-7 h-7 rounded-full" />
+            <img src={testimonialAvatar} alt="Team SympAI" className="w-7 h-7 rounded-full" />
             <div className="text-left text-sm">
-              <span className="text-off-white font-medium">Jamal Ortiz</span>
-              <span className="text-light-gray block">Co-founder, Taskflux</span>
+              <span className="text-off-white font-medium">Team SympAI</span>
+              <span className="text-light-gray block">AI Health Companion</span>
             </div>
           </figcaption>
         </motion.figure>
@@ -56,12 +56,12 @@ const  Hero = () => {
         </motion.h1>
 
         <motion.p className="max-w-2xl text-medium-gray text-base md:text-lg text-balance" variants={itemVariants}>
-          Boost efficiency and eliminate repetitive tasks with AI-powered automation solutions tailored to your business needs.
+          An AI-powered system that talks like a human, learns like a doctor, and thinks like a scientist. Get instant health guidance in your native language, 24/7 accessible care, and real-time disease tracking.
         </motion.p>
         
         <motion.div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto" variants={itemVariants}>
-          <a href="#" className="bg-dark-green hover:bg-primary-green transition-colors text-white font-medium py-4 px-8 rounded-2xl w-full sm:w-auto">Book a Call</a>
-          <a href="#services" className="bg-light-black hover:bg-gray-800 transition-colors border border-gray-700 text-white font-medium py-4 px-8 rounded-2xl w-full sm:w-auto">Our Services</a>
+          <a href="/Doctor" className="bg-dark-green hover:bg-primary-green transition-colors text-white font-medium py-4 px-8 rounded-2xl w-full sm:w-auto">Find a Doctor</a>
+          <a href="#how-it-works" className="bg-light-black hover:bg-gray-800 transition-colors border border-gray-700 text-white font-medium py-4 px-8 rounded-2xl w-full sm:w-auto">How It Works</a>
         </motion.div>
       </motion.div>
     </section>

@@ -6,17 +6,28 @@ import { service1, service2 } from '../assets';
 const services = [
   {
     id: 1,
-    title: 'Automated Lead Management',
-    description: 'We build systems that capture, qualify, and nurture leads automatically, ensuring you never miss an opportunity. From contact forms to your CRM, we streamline the entire process.',
+    title: '🧠 RAG-based Diagnosis',
+    description: 'Fetches information from medical research papers, not random internet data. 85% accurate responses with verified medical literature.',
     image: service1
   },
   {
     id: 2,
-    title: 'Custom Internal Workflows',
-    description: 'Eliminate repetitive tasks and free up your team for more important work. We create tailored AI automations for HR, finance, and operations that work seamlessly with your existing tools.',
+    title: '🌐 Multilingual Conversational AI',
+    description: 'Supports 10+ Indian languages. Reaches rural populations with instant health guidance in their native language, 24/7 accessible care.',
     image: service2
   },
-  // Add more services here if needed
+  {
+    id: 3,
+    title: '📊 Smart Analytical Dashboard',
+    description: 'Aggregates anonymized data to track health trends & predict disease outbreaks. Enables early response and helps authorities detect outbreaks before they spread.',
+    image: service1
+  },
+  {
+    id: 4,
+    title: '🩺 Doctor Portal',
+    description: 'Quick access to summarized patient history. Detailed AI case reports help doctors spend time solving, not noting. Reduces consult time by 50%.',
+    image: service2
+  },
 ];
 
 const Services = () => {
@@ -28,28 +39,17 @@ const Services = () => {
     <section id="services" className="py-20 px-6">
       <div className="max-w-6xl mx-auto flex flex-col items-center gap-12">
         <div className="text-center">
-          <p className="text-primary-green uppercase tracking-[0.2em] font-medium">Services</p>
-          <h2 className="text-4xl md:text-6xl font-medium text-balance">What We Offer</h2>
+          <p className="text-primary-green uppercase tracking-[0.2em] font-medium">Features</p>
+          <h2 className="text-4xl md:text-6xl font-medium text-balance">Core Innovations</h2>
         </div>
 
-        <div className="w-full flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-          {/* Left Column for Images */}
-          <div className="w-full md:w-1/2 md:sticky top-24">
-            {/* On desktop, you could map through images and change visibility based on scroll.
-                For this version, we'll show the primary ones. */}
-            <img src={services[0].image} alt={services[0].title} className="rounded-2xl w-full mb-8" />
-            <img src={services[1].image} alt={services[1].title} className="rounded-2xl w-full" />
-          </div>
-
-          {/* Right Column for Text */}
-          <div className="w-full md:w-1/2 flex flex-col gap-16">
-            {services.map((service) => (
-              <div key={service.id} className="p-8 bg-dark-bg border border-light-black rounded-2xl">
-                <h3 className="text-3xl font-medium mb-4">{service.title}</h3>
-                <p className="text-footer-gray leading-relaxed">{service.description}</p>
-              </div>
-            ))}
-          </div>
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+          {services.map((service) => (
+            <div key={service.id} className="p-8 bg-dark-bg border border-light-black rounded-2xl hover:border-primary-green transition-colors">
+              <h3 className="text-2xl md:text-3xl font-medium mb-4 text-off-white">{service.title}</h3>
+              <p className="text-footer-gray leading-relaxed">{service.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
