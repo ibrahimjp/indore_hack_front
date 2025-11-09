@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AppContext } from "../../context/AppContext";
 import axios from "axios";
 import { useToast } from "../Toast/Toast";
+import { URLS } from "../../config/urls.js";
 
 const AuthModal = ({ isOpen, onClose }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -27,7 +28,7 @@ const AuthModal = ({ isOpen, onClose }) => {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { backendUrl, setToken, setUserData, setDToken, setDoctorData } = useContext(AppContext);
+  const { backendUrl, setToken, setUserData, setDToken, setDoctorData, urls } = useContext(AppContext);
   const toast = useToast();
 
   const handleInputChange = (e) => {
@@ -140,7 +141,7 @@ const AuthModal = ({ isOpen, onClose }) => {
               onClose();
               toast.success(isLoginMode ? "Doctor login successful!" : "Doctor registration successful!");
               // Redirect to doctor dashboard
-              window.location.href = "http://localhost:5175/doctor/dashboard";
+              window.location.href = `${urls.DOCTOR_DASHBOARD_URL}/doctor/dashboard`;
             }
           } catch (doctorError) {
             console.error("Failed to load doctor profile:", doctorError);

@@ -2,12 +2,13 @@ import { createContext } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { URLS } from "../config/urls.js";
 
 export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
   const currencySymbol = "$";
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const backendUrl = URLS.BACKEND_URL;
   const [doctors, setDoctors] = useState([]);
 
   const [token, setToken] = useState(localStorage.getItem("token") || false);
@@ -96,6 +97,8 @@ const AppContextProvider = (props) => {
     doctorData,
     setDoctorData,
     loadDoctorProfileData,
+    // URL Configuration
+    urls: URLS,
   };
 
   return (

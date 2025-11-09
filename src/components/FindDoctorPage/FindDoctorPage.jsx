@@ -5,10 +5,11 @@ import { AppContext } from "../../context/AppContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../Toast/Toast";
+import { URLS } from "../../config/urls.js";
 
 // --- BookingModal Component ---
 const BookingModal = ({ isOpen, onClose, doctor }) => {
-  const { token, backendUrl } = useContext(AppContext);
+  const { token, backendUrl, urls } = useContext(AppContext);
   const navigate = useNavigate();
   const toast = useToast();
   const [selectedDate, setSelectedDate] = useState("");
@@ -116,7 +117,7 @@ const BookingModal = ({ isOpen, onClose, doctor }) => {
 
         // Navigate after a brief delay to ensure modal is fully closed
         setTimeout(() => {
-          window.location.href = "http://localhost:5174/appointments";
+          window.location.href = `${urls.USER_DASHBOARD_URL}/appointments`;
         }, 300);
       } else {
         setIsBooking(false);

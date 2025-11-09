@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import { useToast } from "../Toast/Toast";
+import { URLS } from "../../config/urls.js";
 
 const UserMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
-  const { userData, setToken, setUserData, doctorData, setDToken, setDoctorData, dToken } = useContext(AppContext);
+  const { userData, setToken, setUserData, doctorData, setDToken, setDoctorData, dToken, urls } = useContext(AppContext);
   const toast = useToast();
   
   // Check if doctor is logged in
@@ -39,17 +40,17 @@ const UserMenu = () => {
         navigate("/profile");
         break;
       case "appointments":
-        window.location.href = "http://localhost:5174/appointments";
+        window.location.href = `${urls.USER_DASHBOARD_URL}/appointments`;
         break;
       case "dashboard":
         if (isDoctor) {
-          window.location.href = "http://localhost:5175/doctor/dashboard";
+          window.location.href = `${urls.DOCTOR_DASHBOARD_URL}/doctor/dashboard`;
         } else {
-          window.location.href = "http://localhost:5174/dashboard";
+          window.location.href = `${urls.USER_DASHBOARD_URL}/dashboard`;
         }
         break;
       case "messages":
-        window.location.href = "http://localhost:5174/messages";
+        window.location.href = `${urls.USER_DASHBOARD_URL}/messages`;
         break;
       case "logout":
         if (isDoctor) {

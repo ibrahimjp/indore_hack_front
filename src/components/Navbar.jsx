@@ -9,6 +9,7 @@ import { AppContext } from "../context/AppContext";
 import AuthModal from "./Auth/AuthModal";
 import UserMenu from "./Auth/UserMenu";
 import { useToast } from "./Toast/Toast";
+import { URLS } from "../config/urls.js";
 
 const navLinks = [
   { title: "Home", href: "/" },
@@ -21,7 +22,7 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const { userData, token, setToken, setUserData, doctorData, dToken, setDToken, setDoctorData } = useContext(AppContext);
+  const { userData, token, setToken, setUserData, doctorData, dToken, setDToken, setDoctorData, urls } = useContext(AppContext);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -174,7 +175,7 @@ const Navbar = () => {
                           <button
                             onClick={() => {
                               toggleMenu();
-                              window.location.href = "http://localhost:5175/doctor/dashboard";
+                              window.location.href = `${urls.DOCTOR_DASHBOARD_URL}/doctor/dashboard`;
                             }}
                             className="bg-primary-green text-dark-bg font-medium py-2 px-4 rounded-xl text-sm hover:bg-deep-green transition-colors"
                           >
@@ -204,7 +205,7 @@ const Navbar = () => {
                           <button
                             onClick={() => {
                               toggleMenu();
-                              window.location.href = "http://localhost:5174/appointments";
+                              window.location.href = `${urls.USER_DASHBOARD_URL}/appointments`;
                             }}
                             className="bg-dark-green text-off-white font-medium py-2 px-4 rounded-xl text-sm hover:bg-primary-green transition-colors"
                           >
